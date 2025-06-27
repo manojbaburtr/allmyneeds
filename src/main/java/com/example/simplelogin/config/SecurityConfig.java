@@ -23,8 +23,12 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/login","/logout","/h2-console/**","/css/**").permitAll().anyRequest()
 				.authenticated()).formLogin(login -> login.loginPage("/login").defaultSuccessUrl("/form", true).permitAll()).logout(logout -> logout.permitAll());
 		
-		http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+		http.csrf(csrf -> csrf.disable())
 		.headers(headers -> headers.frameOptions().sameOrigin());
+		/*
+		 * http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+		 * .headers(headers -> headers.frameOptions().sameOrigin());
+		 */
 		
 		return http.build();
 	}
